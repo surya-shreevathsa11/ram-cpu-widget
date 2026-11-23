@@ -18,6 +18,15 @@ This project is intentionally minimal:
 - draggable always-on-top window
 - right-to-left timeline graph (newest values at the right edge)
 
+## Resource usage
+
+Measured on Ubuntu GNOME with default widget settings (`240x88`, `1000ms` refresh):
+
+- memory: ~`25.4 MiB` RSS (about `26,000 KB`)
+- CPU: typically around `1%` in this test environment
+
+Actual usage can vary with desktop session, compositor, fonts, and refresh interval.
+
 ## Requirements
 
 - Linux
