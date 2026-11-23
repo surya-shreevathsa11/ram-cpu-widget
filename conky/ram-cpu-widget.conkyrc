@@ -11,8 +11,8 @@ conky.config = {
     imlib_cache_size = 0,
 
     own_window = true,
-    own_window_type = "dock",
-    own_window_hints = "undecorated,sticky,skip_taskbar,skip_pager,above",
+    own_window_type = "normal",
+    own_window_hints = "",
     own_window_transparent = false,
     own_window_argb_visual = true,
     own_window_argb_value = 210,
@@ -44,10 +44,9 @@ conky.config = {
 };
 
 conky.text = [[
-${color}zram ${execi 2 awk 'NR>1 && $1 ~ /zram/ {u+=$4; t+=$3} END {if (t>0) printf "%.1f%%", (u/t)*100; else printf "n/a"}' /proc/swaps} | temp ${execi 2 sh -c 'for z in /sys/class/thermal/thermal_zone*; do [ -f "$z/type" ] || continue; [ -f "$z/temp" ] || continue; t=$(cat "$z/type" 2>/dev/null | tr "[:upper:]" "[:lower:]"); v=$(cat "$z/temp" 2>/dev/null); [ -n "$v" ] || continue; [ "$v" -gt 0 ] 2>/dev/null || continue; if echo "$t" | grep -Eq "cpu|pkg|x86_pkg_temp"; then awk "BEGIN {printf \"%.0f\", $v/1000}"; exit; fi; done; echo n/a'}C | 1000ms
-${voffset 2}${color4}${font Sans:bold:size=9}RAM${alignr}${color1}${memperc}%${font}
+${color}zram ${execi 2 /data/personal-projs/ram-cpu-widget/scripts/conky-zram.sh} | temp ${execi 2 /data/personal-projs/ram-cpu-widget/scripts/conky-temp.sh}C | 1000ms
+${voffset 2}${color4}${font Sans:bold:size=9}RAM${alignr}${color1}${execi 1 /data/personal-projs/ram-cpu-widget/scripts/conky-ram-pct.sh}%${font}
 ${color3}${memgraph 14,220 2A2A2A 77E67D -t}
 ${voffset 4}${color4}${font Sans:bold:size=9}CPU${alignr}${color2}${cpu cpu0}%${font}
 ${color2}${cpugraph cpu0 14,220 2A2A2A 83CFFF -t}
-${voffset 1}${alignr}${font Sans:size=7}${color}drag
 ]];

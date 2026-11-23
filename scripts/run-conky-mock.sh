@@ -12,4 +12,5 @@ if ! command -v conky >/dev/null 2>&1; then
   exit 1
 fi
 
+pkill -f "conky -c ${CONFIG_FILE}" >/dev/null 2>&1 || true
 exec conky -c "${CONFIG_FILE}"

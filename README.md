@@ -20,12 +20,22 @@ This project is intentionally minimal:
 
 ## Resource usage
 
-Measured on Ubuntu GNOME with default widget settings (`240x88`, `1000ms` refresh):
+Measured on Ubuntu GNOME (`240x88`, `1000ms` refresh), real values from `/proc/*/smaps_rollup`.
 
-- memory: ~`25.4 MiB` RSS (about `26,000 KB`)
-- CPU: typically around `1%` in this test environment
+### Python (`ram_widget.py`)
 
-Actual usage can vary with desktop session, compositor, fonts, and refresh interval.
+- RSS: ~`19-26 MiB` (includes shared libraries)
+- PSS: ~`13 MiB`
+- Private memory: ~`12-13 MiB`
+
+### Conky (`conky/ram-cpu-widget.conkyrc`)
+
+- RSS: ~`25-26 MiB` (includes shared libraries)
+- PSS: ~`9-10 MiB`
+- Private memory: ~`8-9 MiB`
+
+Conky is usually lighter in practical per-process impact (`PSS`/`Private`) even when `RSS` appears similar or higher.
+Actual usage varies by compositor, fonts, session type, and update interval.
 
 ## Requirements
 
@@ -76,6 +86,7 @@ If you want a much lower RAM baseline, this repo includes a Conky mock theme wit
 
 - config: `conky/ram-cpu-widget.conkyrc`
 - launcher: `scripts/run-conky-mock.sh`
+- stopper: `scripts/stop-conky-mock.sh`
 
 Run:
 
@@ -83,10 +94,17 @@ Run:
 bash scripts/run-conky-mock.sh
 ```
 
+Stop:
+
+```bash
+bash scripts/stop-conky-mock.sh
+```
+
 Notes:
 
 - Conky is not bundled and may need installation (`sudo apt install conky-all`).
 - The Conky version is designed as a lightweight alternative and may not be pixel-identical to the Tk widget.
+- On GNOME, move the Conky window with your window-manager shortcut (commonly `Super` + drag or `Alt` + drag).
 
 ## Project structure
 
@@ -98,6 +116,10 @@ ram-cpu-widget/
 ├── packaging/
 │   └── ram-widget.desktop
 ├── scripts/
+│   ├── conky-ram-pct.sh
+│   ├── conky-temp.sh
+│   ├── conky-zram.sh
+│   ├── stop-conky-mock.sh
 │   ├── run-conky-mock.sh
 │   └── install-autostart.sh
 ├── LICENSE
