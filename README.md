@@ -70,14 +70,35 @@ cp packaging/ram-widget.desktop ~/.config/autostart/ram-widget.desktop
 
 Then update the `Exec=` line in the copied file to your local project path.
 
+## Conky low-RAM mock theme
+
+If you want a much lower RAM baseline, this repo includes a Conky mock theme with a similar visual style:
+
+- config: `conky/ram-cpu-widget.conkyrc`
+- launcher: `scripts/run-conky-mock.sh`
+
+Run:
+
+```bash
+bash scripts/run-conky-mock.sh
+```
+
+Notes:
+
+- Conky is not bundled and may need installation (`sudo apt install conky-all`).
+- The Conky version is designed as a lightweight alternative and may not be pixel-identical to the Tk widget.
+
 ## Project structure
 
 ```text
 ram-cpu-widget/
 ├── ram_widget.py
+├── conky/
+│   └── ram-cpu-widget.conkyrc
 ├── packaging/
 │   └── ram-widget.desktop
 ├── scripts/
+│   ├── run-conky-mock.sh
 │   └── install-autostart.sh
 ├── LICENSE
 ├── README.md
