@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=RAM CPU Widget
+Comment=Lightweight live RAM, CPU, and zram usage widget
+Exec=python3 /absolute/path/to/ram-cpu-widget/ram_widget.py
+Icon=utilities-system-monitor
+Terminal=false
+Categories=Utility;System;Monitor;
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=5
